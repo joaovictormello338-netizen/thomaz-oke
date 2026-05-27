@@ -1,7 +1,7 @@
 const musicList = document.getElementById('music-list');
 const search = document.getElementById('search');
 
-let songs = [];
+ renderSongs(songs.slice(0, 100));
 
 // Carregar catálogo JSON
 fetch('catalogo-thomaz-oke.json')
@@ -126,6 +126,6 @@ search.addEventListener('keyup', () => {
   });
 
   // Limitar resultados
-  renderSongs(filtered.slice(0, 100));
+  renderSongs(songs.slice(0, 100));
 
 });
