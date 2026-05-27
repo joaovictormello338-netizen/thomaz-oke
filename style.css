@@ -193,21 +193,28 @@ h1{
 
 .card{
 
-  background:rgba(255,255,255,.05);
+  background:
+  linear-gradient(
+    145deg,
+    rgba(25,25,45,.95),
+    rgba(10,10,25,.95)
+  );
 
-  border:1px solid rgba(255,255,255,.08);
+  border:1px solid rgba(140,61,255,.4);
 
-  border-radius:25px;
+  border-radius:28px;
 
   padding:25px;
-
-  backdrop-filter:blur(15px);
-
-  transition:.3s;
 
   position:relative;
 
   overflow:hidden;
+
+  transition:.4s;
+
+  box-shadow:
+  0 0 20px rgba(140,61,255,.18),
+  0 0 40px rgba(0,191,255,.08);
 
 }
 
@@ -217,47 +224,65 @@ h1{
 
   position:absolute;
 
-  width:120px;
+  inset:0;
 
-  height:120px;
+  background:
+  linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.05),
+    transparent
+  );
 
-  background:rgba(156,77,255,.15);
+  transform:translateX(-100%);
 
-  border-radius:50%;
+  transition:.8s;
 
-  top:-40px;
+}
 
-  right:-40px;
+.card:hover::before{
+
+  transform:translateX(100%);
 
 }
 
 .card:hover{
 
-  transform:translateY(-5px);
+  transform:
+  translateY(-10px)
+  scale(1.03);
 
-  border-color:rgba(156,77,255,.4);
+  border-color:#9c4dff;
 
   box-shadow:
-  0 0 20px rgba(156,77,255,.25),
-  0 0 40px rgba(0,191,255,.1);
+  0 0 25px rgba(156,77,255,.6),
+  0 0 60px rgba(0,191,255,.25),
+  0 0 100px rgba(255,215,0,.08);
 
 }
-
 .code{
 
   display:inline-block;
 
-  padding:8px 18px;
+  padding:10px 20px;
 
-  border-radius:20px;
+  border-radius:50px;
 
-  background:linear-gradient(90deg,#ffd700,#ff9f00);
+  background:
+  linear-gradient(
+    90deg,
+    #ffd700,
+    #ff9900
+  );
 
   color:#111;
 
   font-weight:700;
 
-  font-size:14px;
+  letter-spacing:1px;
+
+  box-shadow:
+  0 0 15px rgba(255,215,0,.6);
 
 }
 
@@ -273,11 +298,14 @@ h1{
 
 .artist{
 
-  margin-top:10px;
-
-  color:#8dc7ff;
+  margin-top:12px;
 
   font-size:18px;
+
+  color:#67c1ff;
+
+  text-shadow:
+  0 0 10px rgba(0,191,255,.5);
 
 }
 
