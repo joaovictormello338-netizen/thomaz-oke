@@ -6,28 +6,61 @@
   box-sizing:border-box;
 }
 
-body{
+body::before{
 
-  font-family:'Poppins', sans-serif;
+  content:'';
+
+  position:fixed;
+
+  inset:-20%;
 
   background:
-  radial-gradient(circle at 20% 20%, rgba(140,61,255,.35), transparent 25%),
 
-  radial-gradient(circle at 80% 0%, rgba(0,191,255,.25), transparent 25%),
+    radial-gradient(circle at 15% 20%,
+    rgba(140,61,255,.9),
+    transparent 25%),
 
-  radial-gradient(circle at bottom left, rgba(255,215,0,.12), transparent 30%),
+    radial-gradient(circle at 85% 10%,
+    rgba(0,191,255,.8),
+    transparent 25%),
 
-  #05050a;
+    radial-gradient(circle at 50% 80%,
+    rgba(255,0,128,.55),
+    transparent 30%),
 
-  background-attachment:fixed;
+    radial-gradient(circle at 80% 70%,
+    rgba(255,215,0,.35),
+    transparent 25%);
 
-  color:white;
+  filter:blur(120px);
 
-  min-height:100vh;
+  animation:ambientMove 8s ease infinite alternate;
 
-  overflow-x:hidden;
+  z-index:-2;
 
-  animation:bgMove 12s infinite alternate;
+  opacity:1;
+
+}
+
+@keyframes ambientMove{
+
+  0%{
+
+    transform:
+    scale(1)
+    translateY(0)
+    rotate(0deg);
+
+  }
+
+  100%{
+
+    transform:
+    scale(1.15)
+    translateY(-40px)
+    rotate(2deg);
+
+  }
 
 }
 header{
