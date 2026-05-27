@@ -321,3 +321,66 @@ h1{
   }
 
 }
+.subtitle{
+
+  margin-top:10px;
+
+  font-size:18px;
+
+  color:rgba(255,255,255,.75);
+
+  letter-spacing:1px;
+
+}
+
+.hero-glow{
+
+  width:250px;
+
+  height:250px;
+
+  position:absolute;
+
+  top:-80px;
+
+  left:50%;
+
+  transform:translateX(-50%);
+
+  background:radial-gradient(circle,#8c3dff55,transparent 70%);
+
+  filter:blur(40px);
+
+  z-index:-1;
+
+  animation:pulse 4s infinite;
+
+}
+
+@keyframes pulse{
+
+  0%{
+
+    transform:translateX(-50%) scale(1);
+
+    opacity:.7;
+
+  }
+
+  50%{
+
+    transform:translateX(-50%) scale(1.2);
+
+    opacity:1;
+
+  }
+
+  100%{
+
+    transform:translateX(-50%) scale(1);
+
+    opacity:.7;
+
+  }
+
+}
