@@ -98,15 +98,24 @@ header{
 
 .logo{
 
-  width:180px;
+  width:220px;
 
-  border-radius:25px;
+  border-radius:35px;
+
+  position:relative;
+
+  z-index:2;
+
+  animation:logoPulse 3s ease infinite alternate;
 
   box-shadow:
-  0 0 30px rgba(111,0,255,.7),
-  0 0 60px rgba(0,183,255,.3);
 
-  transition:.4s;
+    0 0 25px rgba(140,61,255,.6),
+
+    0 0 60px rgba(0,191,255,.25),
+
+    0 0 100px rgba(140,61,255,.2);
+
 }
 
 .logo:hover{
@@ -638,5 +647,82 @@ h1{
 
   text-shadow:
     0 0 12px rgba(255,255,255,.15);
+
+}
+@keyframes logoPulse{
+
+  0%{
+
+    transform:
+    scale(1);
+
+    filter:brightness(1);
+
+  }
+
+  100%{
+
+    transform:
+    scale(1.04);
+
+    filter:brightness(1.15);
+
+  }
+
+}
+
+header::before{
+
+  content:'';
+
+  position:absolute;
+
+  width:600px;
+
+  height:600px;
+
+  background:
+
+    radial-gradient(circle,
+    rgba(140,61,255,.18),
+    transparent 70%);
+
+  top:-250px;
+
+  left:50%;
+
+  transform:translateX(-50%);
+
+  z-index:-1;
+
+  filter:blur(50px);
+
+}
+
+header::after{
+
+  content:'';
+
+  position:absolute;
+
+  width:400px;
+
+  height:400px;
+
+  background:
+
+    radial-gradient(circle,
+    rgba(0,191,255,.12),
+    transparent 70%);
+
+  top:-120px;
+
+  left:50%;
+
+  transform:translateX(-50%);
+
+  z-index:-1;
+
+  filter:blur(50px);
 
 }
