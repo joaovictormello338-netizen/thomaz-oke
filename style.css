@@ -475,3 +475,70 @@ h1{
   scale(1.02);
 
 }
+.particles{
+
+  position:fixed;
+
+  inset:0;
+
+  overflow:hidden;
+
+  z-index:-2;
+
+  pointer-events:none;
+
+}
+
+.particles::before,
+.particles::after{
+
+  content:'';
+
+  position:absolute;
+
+  width:200%;
+
+  height:200%;
+
+  background-image:
+
+    radial-gradient(circle, rgba(255,255,255,.18) 2px, transparent 2px),
+
+    radial-gradient(circle, rgba(140,61,255,.25) 2px, transparent 2px),
+
+    radial-gradient(circle, rgba(0,191,255,.18) 2px, transparent 2px);
+
+  background-size:
+    120px 120px,
+    180px 180px,
+    240px 240px;
+
+  animation:particlesMove 40s linear infinite;
+
+  opacity:.6;
+
+}
+
+.particles::after{
+
+  animation-duration:60s;
+
+  opacity:.35;
+
+}
+
+@keyframes particlesMove{
+
+  from{
+
+    transform:translateY(0);
+
+  }
+
+  to{
+
+    transform:translateY(-400px);
+
+  }
+
+}
