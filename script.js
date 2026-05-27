@@ -2,22 +2,26 @@ const musicList = document.getElementById('music-list');
 const search = document.getElementById('search');
 
 let songs = [];
+let filteredSongs = [];
 
-// Carregar catálogo JSON
+let currentIndex = 0;
+const limit = 50;
+
+// Carregar catálogo
 fetch('catalogo-thomaz-oke.json')
   .then(response => response.json())
   .then(data => {
 
     songs = data;
+    filteredSongs = songs;
 
-    // Exibe as primeiras músicas
-    renderSongs(songs.slice(0, 100));
+    loadMoreSongs();
 
   })
 
   .catch(error => {
 
-    console.error('Erro ao carregar catálogo:', error);
+    console.error(error);
 
     musicList.innerHTML = `
 
@@ -27,9 +31,7 @@ fetch('catalogo-thomaz-oke.json')
         color:red;
         font-size:20px;
       ">
-
         Erro ao carregar catálogo.
-
       </div>
 
     `;
@@ -40,31 +42,6 @@ fetch('catalogo-thomaz-oke.json')
 // Renderizar músicas
 function renderSongs(list){
 
-  musicList.innerHTML = '';
-
-  // Caso não encontre resultados
-  if(list.length === 0){
-
-    musicList.innerHTML = `
-
-      <div style="
-        text-align:center;
-        padding:40px;
-        opacity:.7;
-        font-size:20px;
-      ">
-
-        Nenhuma música encontrada.
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-  // Criar cards
   list.forEach(song => {
 
     const musica = song.musica || 'Sem música';
@@ -98,21 +75,58 @@ function renderSongs(list){
 }
 
 
-// Busca inteligente
+// Carregar mais músicas
+function loadMoreSongs(){
+
+  const nextSongs = filteredSongs.slice(currentIndex, currentIndex + limit);
+
+  renderSongs(nextSongs);
+
+  currentIndex += limit;
+
+}
+
+
+// Scroll infinito
+window.addEventListener('scroll', () => {
+
+  const {
+
+    scrollTop,
+    scrollHeight,
+    clientHeight
+
+  } = document.documentElement;
+
+  if(scrollTop + clientHeight >= scrollHeight - 100){
+
+    loadMoreSongs();
+
+  }
+
+});
+
+
+// Busca
 search.addEventListener('keyup', () => {
 
   const term = search.value.toLowerCase().trim();
 
-  // Se estiver vazio
+  currentIndex = 0;
+
+  musicList.innerHTML = '';
+
   if(term === ''){
 
-    renderSongs(songs.slice(0, 100));
+    filteredSongs = songs;
+
+    loadMoreSongs();
 
     return;
 
   }
 
-  const filtered = songs.filter(song => {
+  filteredSongs = songs.filter(song => {
 
     const musica = String(song.musica || '').toLowerCase();
 
@@ -132,6 +146,6 @@ search.addEventListener('keyup', () => {
 
   });
 
-  renderSongs(filtered.slice(0, 100));
+  loadMoreSongs();
 
 });
