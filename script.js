@@ -13,7 +13,7 @@ fetch('catalogo-thomaz-oke.json')
     songs = data;
 
     // Exibir primeiras músicas
-    renderSongs(songs.slice(0, 100));
+    renderSongs(songs;
 
   })
 
