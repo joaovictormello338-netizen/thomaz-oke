@@ -234,3 +234,18 @@ function toggleFavorite(codigo, musica, artista){
   );
 
 }
+document
+  .getElementById('showFavorites')
+  .addEventListener('click', () => {
+
+    const favorites = JSON.parse(
+      localStorage.getItem('favorites')
+    ) || [];
+
+    musicList.innerHTML = '';
+
+    currentIndex = 0;
+
+    renderSongs(favorites);
+
+});
