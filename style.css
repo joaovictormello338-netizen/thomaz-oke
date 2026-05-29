@@ -1114,3 +1114,36 @@ header::after{
     0 0 80px rgba(0,255,132,.35);
 
 }
+.favorite-btn{
+
+  width:100%;
+
+  margin-top:15px;
+
+  padding:12px;
+
+  border:none;
+
+  border-radius:15px;
+
+  background:#ff2d75;
+
+  color:white;
+
+  font-size:16px;
+
+  font-weight:700;
+
+  cursor:pointer;
+
+  transition:.3s;
+
+}
+
+.favorite-btn:hover{
+
+  transform:scale(1.03);
+
+  background:#ff4088;
+
+}
