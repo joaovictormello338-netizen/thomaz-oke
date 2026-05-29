@@ -7,12 +7,16 @@ let filteredSongs = [];
 let currentIndex = 0;
 const limit = 50;
 
-// Carregar catálogo
+
+// CARREGAR CATÁLOGO
 fetch('catalogo-thomaz-oke.json')
+
   .then(response => response.json())
+
   .then(data => {
 
     songs = data;
+
     filteredSongs = songs;
 
     loadMoreSongs();
@@ -28,10 +32,12 @@ fetch('catalogo-thomaz-oke.json')
       <div style="
         text-align:center;
         padding:40px;
-        color:red;
+        color:#ff4d4d;
         font-size:20px;
       ">
+
         Erro ao carregar catálogo.
+
       </div>
 
     `;
@@ -39,7 +45,9 @@ fetch('catalogo-thomaz-oke.json')
   });
 
 
-// Renderizar músicas
+
+
+// RENDERIZAR MÚSICAS
 function renderSongs(list){
 
   list.forEach(song => {
@@ -52,34 +60,51 @@ function renderSongs(list){
 
     musicList.innerHTML += `
 
-     <div class="card">
+      <div class="card">
 
-  <div class="code">
-    ${codigo}
-  </div>
+        <div class="code">
+          ${codigo}
+        </div>
 
-  <h2>
-    ${musica}
-  </h2>
+        <h2>
+          ${musica}
+        </h2>
 
-  <div class="artist">
-    ${artista}
-  </div>
+        <div class="artist">
+          ${artista}
+        </div>
 
-  <a
-    href="https://wa.me/5522998082894?text=Olá! Quero solicitar a música ${musica} - Código ${codigo}"
-    target="_blank"
-    class="music-btn"
-  >
-    🎵 Solicitar Música
-  </a>
+        <a
+          href="https://wa.me/5522998082894?text=Olá! Quero solicitar a música ${musica} - Código ${codigo}"
+          target="_blank"
+          class="music-btn"
+        >
 
-</div>
+          🎵 Solicitar Música
 
-// Carregar mais músicas
+        </a>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+
+
+// CARREGAR MAIS MÚSICAS
 function loadMoreSongs(){
 
-  const nextSongs = filteredSongs.slice(currentIndex, currentIndex + limit);
+  const nextSongs = filteredSongs.slice(
+
+    currentIndex,
+
+    currentIndex + limit
+
+  );
 
   renderSongs(nextSongs);
 
@@ -88,18 +113,26 @@ function loadMoreSongs(){
 }
 
 
-// Scroll infinito
+
+
+// SCROLL INFINITO
 window.addEventListener('scroll', () => {
 
   const {
 
     scrollTop,
+
     scrollHeight,
+
     clientHeight
 
   } = document.documentElement;
 
-  if(scrollTop + clientHeight >= scrollHeight - 100){
+  if(
+
+    scrollTop + clientHeight >= scrollHeight - 100
+
+  ){
 
     loadMoreSongs();
 
@@ -108,10 +141,16 @@ window.addEventListener('scroll', () => {
 });
 
 
-// Busca
+
+
+// BUSCA
 search.addEventListener('keyup', () => {
 
-  const term = search.value.toLowerCase().trim();
+  const term = search.value
+
+    .toLowerCase()
+
+    .trim();
 
   currentIndex = 0;
 
@@ -129,11 +168,23 @@ search.addEventListener('keyup', () => {
 
   filteredSongs = songs.filter(song => {
 
-    const musica = String(song.musica || '').toLowerCase();
+    const musica = String(
 
-    const artista = String(song.artista || '').toLowerCase();
+      song.musica || ''
 
-    const codigo = String(song.codigo || '');
+    ).toLowerCase();
+
+    const artista = String(
+
+      song.artista || ''
+
+    ).toLowerCase();
+
+    const codigo = String(
+
+      song.codigo || ''
+
+    );
 
     return (
 
