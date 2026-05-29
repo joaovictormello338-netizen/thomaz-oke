@@ -1049,38 +1049,50 @@ header::after{
 
   bottom:25px;
 
-  width:78px;
-
-  height:78px;
-
-  border-radius:50%;
-
-  background:
-
-    linear-gradient(
-      180deg,
-      #00ff84,
-      #00c853
-    );
-
   display:flex;
 
   align-items:center;
 
-  justify-content:center;
+  gap:12px;
+
+  padding:14px 22px;
+
+  min-width:240px;
+
+  border-radius:50px;
+
+  background:linear-gradient(
+    90deg,
+    #00ff84,
+    #00c853
+  );
+
+  color:white !important;
+
+  text-decoration:none;
+
+  font-size:18px;
+
+  font-weight:700;
+
+  white-space:nowrap;
 
   z-index:9999;
 
   box-shadow:
-
     0 0 20px rgba(0,255,132,.65),
-
     0 0 60px rgba(0,255,132,.25);
 
   transition:.35s;
 
 }
+.whatsapp-float span{
 
+  white-space:nowrap;
+
+  color:white;
+
+}
 .whatsapp-float img{
 
   width:40px;
