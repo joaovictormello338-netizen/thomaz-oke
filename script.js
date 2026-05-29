@@ -198,54 +198,22 @@ search.addEventListener('keyup', () => {
   loadMoreSongs();
 
 });
-function toggleFavorite(codigo, musica, artista){
+const showFavoritesBtn = document.getElementById('showFavorites');
 
-  let favorites = JSON.parse(
-    localStorage.getItem('favorites')
-  ) || [];
+if(showFavoritesBtn){
 
-  const exists = favorites.find(
-    item => item.codigo === codigo
-  );
-
-  if(exists){
-
-    favorites = favorites.filter(
-      item => item.codigo !== codigo
-    );
-
-    alert('❌ Removida das favoritas');
-
-  }else{
-
-    favorites.push({
-      codigo,
-      musica,
-      artista
-    });
-
-    alert('❤️ Música adicionada às favoritas');
-
-  }
-
-  localStorage.setItem(
-    'favorites',
-    JSON.stringify(favorites)
-  );
-
-}
-document
-  .getElementById('showFavorites')
-  .addEventListener('click', () => {
+  showFavoritesBtn.addEventListener('click', () => {
 
     const favorites = JSON.parse(
       localStorage.getItem('favorites')
     ) || [];
 
-    musicList.innerHTML = '';
+    console.log('Favoritas:', favorites);
 
-    currentIndex = 0;
+    musicList.innerHTML = '';
 
     renderSongs(favorites);
 
-});
+  });
+
+}
