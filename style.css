@@ -371,7 +371,7 @@ h1{
 
 }
 }
-.code{
+..code{
 
   display:inline-flex;
 
@@ -379,37 +379,47 @@ h1{
 
   justify-content:center;
 
-  min-width:90px;
+  min-width:140px;
 
-  padding:12px 24px;
+  padding:18px 34px;
 
-  border-radius:50px;
+  border-radius:28px;
 
   background:
 
     linear-gradient(
-      90deg,
-      #ffd700,
-      #ff9f00
+      180deg,
+      #ffe600,
+      #ffb300
     );
 
-  color:#111;
+  color:#000;
 
-  font-weight:800;
+  font-size:58px;
 
-  font-size:18px;
+  font-weight:900;
 
-  letter-spacing:1px;
+  font-style:italic;
+
+  letter-spacing:3px;
+
+  line-height:1;
 
   box-shadow:
 
-    0 0 15px rgba(255,215,0,.55),
+    0 0 18px rgba(255,230,0,.95),
 
-    0 0 35px rgba(255,159,0,.25);
+    0 0 45px rgba(255,179,0,.55),
+
+    0 0 90px rgba(255,179,0,.22);
+
+  margin-bottom:24px;
 
   position:relative;
 
   overflow:hidden;
+
+  transform:skewX(-6deg);
 
 }
 
@@ -793,18 +803,17 @@ header::after{
     linear-gradient(
       120deg,
       transparent,
-      rgba(255,255,255,.45),
+      rgba(255,255,255,.85),
       transparent
     );
 
-  transform:translateX(-100%);
-
-  transition:.8s;
+  transform:translateX(-120%);
 
 }
-
 .card:hover .code::before{
 
-  transform:translateX(100%);
+  transform:translateX(120%);
+
+  transition:1s;
 
 }
