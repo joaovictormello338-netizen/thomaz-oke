@@ -882,3 +882,54 @@ header::after{
   margin-bottom:22px;
 
 }
+.card button{
+
+  width:100%;
+
+  margin-top:22px;
+
+  padding:16px;
+
+  border:none;
+
+  border-radius:18px;
+
+  background:
+
+    linear-gradient(
+      90deg,
+      #00c853,
+      #00ff84
+    );
+
+  color:#fff;
+
+  font-size:18px;
+
+  font-weight:700;
+
+  cursor:pointer;
+
+  transition:.35s;
+
+  box-shadow:
+
+    0 0 18px rgba(0,255,132,.45),
+
+    0 0 45px rgba(0,255,132,.18);
+
+}
+
+.card button:hover{
+
+  transform:
+    translateY(-4px)
+    scale(1.03);
+
+  box-shadow:
+
+    0 0 28px rgba(0,255,132,.75),
+
+    0 0 65px rgba(0,255,132,.28);
+
+}
