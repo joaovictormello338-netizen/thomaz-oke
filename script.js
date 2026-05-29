@@ -52,20 +52,29 @@ function renderSongs(list){
 
     musicList.innerHTML += `
 
-      <div class="artist">
-  ${artista}
+     <div class="card">
+
+  <div class="code">
+    ${codigo}
+  </div>
+
+  <h2>
+    ${musica}
+  </h2>
+
+  <div class="artist">
+    ${artista}
+  </div>
+
+  <a
+    href="https://wa.me/5522998082894?text=Olá! Quero solicitar a música ${musica} - Código ${codigo}"
+    target="_blank"
+    class="music-btn"
+  >
+    🎵 Solicitar Música
+  </a>
+
 </div>
-
-<a
-  href="https://wa.me/5522998082894?text=Olá! Quero solicitar a música ${musica} - ${codigo}"
-  target="_blank"
-  class="music-btn"
->
-
-  🎵 Solicitar Música
-
-</a>
-
 
 // Carregar mais músicas
 function loadMoreSongs(){
