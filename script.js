@@ -74,16 +74,7 @@ function renderSongs(list){
           ${artista}
         </div>
 
-        <a
-          href="https://wa.me/5522998082894?text=Olá! Quero solicitar a música ${musica} - Código ${codigo}"
-          target="_blank"
-          class="music-btn"
-        >
-
-          🎵 Solicitar Música
-
-        </a>
-
+        
       </div>
 
     `;
