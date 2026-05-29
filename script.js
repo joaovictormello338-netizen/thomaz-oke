@@ -73,6 +73,12 @@ function renderSongs(list){
         <div class="artist">
           ${artista}
         </div>
+        <button
+  class="favorite-btn"
+  onclick="toggleFavorite('${codigo}','${musica}','${artista}')"
+>
+  ❤️ Favoritar
+</button>
 
         
       </div>
@@ -192,3 +198,39 @@ search.addEventListener('keyup', () => {
   loadMoreSongs();
 
 });
+function toggleFavorite(codigo, musica, artista){
+
+  let favorites = JSON.parse(
+    localStorage.getItem('favorites')
+  ) || [];
+
+  const exists = favorites.find(
+    item => item.codigo === codigo
+  );
+
+  if(exists){
+
+    favorites = favorites.filter(
+      item => item.codigo !== codigo
+    );
+
+    alert('❌ Removida das favoritas');
+
+  }else{
+
+    favorites.push({
+      codigo,
+      musica,
+      artista
+    });
+
+    alert('❤️ Música adicionada às favoritas');
+
+  }
+
+  localStorage.setItem(
+    'favorites',
+    JSON.stringify(favorites)
+  );
+
+}
