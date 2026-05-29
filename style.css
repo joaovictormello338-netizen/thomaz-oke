@@ -988,3 +988,56 @@ header::after{
     0 0 65px rgba(0,255,132,.28);
 
 }
+.music-btn{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  margin-top:22px;
+
+  padding:16px;
+
+  border-radius:18px;
+
+  background:
+
+    linear-gradient(
+      90deg,
+      #00c853,
+      #00ff84
+    );
+
+  color:white;
+
+  text-decoration:none;
+
+  font-size:17px;
+
+  font-weight:700;
+
+  transition:.35s;
+
+  box-shadow:
+
+    0 0 18px rgba(0,255,132,.45),
+
+    0 0 45px rgba(0,255,132,.18);
+
+}
+
+.music-btn:hover{
+
+  transform:
+    translateY(-4px)
+    scale(1.03);
+
+  box-shadow:
+
+    0 0 28px rgba(0,255,132,.75),
+
+    0 0 65px rgba(0,255,132,.28);
+
+}
