@@ -1147,3 +1147,38 @@ header::after{
   background:#ff4088;
 
 }
+#showFavorites{
+
+  margin:20px auto;
+
+  display:block;
+
+  padding:14px 24px;
+
+  border:none;
+
+  border-radius:20px;
+
+  background:linear-gradient(
+    90deg,
+    #ff2d75,
+    #ff5a9d
+  );
+
+  color:white;
+
+  font-size:18px;
+
+  font-weight:700;
+
+  cursor:pointer;
+
+  transition:.3s;
+
+}
+
+#showFavorites:hover{
+
+  transform:scale(1.05);
+
+}
