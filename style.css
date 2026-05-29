@@ -817,3 +817,48 @@ header::after{
   transition:1s;
 
 }
+.card .code{
+
+  display:inline-flex !important;
+
+  align-items:center;
+
+  justify-content:center;
+
+  min-width:150px !important;
+
+  padding:18px 34px !important;
+
+  border-radius:26px !important;
+
+  background:
+
+    linear-gradient(
+      180deg,
+      #ffe600,
+      #ffb300
+    ) !important;
+
+  color:#000 !important;
+
+  font-size:64px !important;
+
+  font-weight:900 !important;
+
+  font-style:italic;
+
+  line-height:1;
+
+  letter-spacing:2px;
+
+  box-shadow:
+
+    0 0 20px rgba(255,230,0,.95),
+
+    0 0 50px rgba(255,179,0,.55),
+
+    0 0 100px rgba(255,179,0,.25);
+
+  margin-bottom:26px;
+
+}
