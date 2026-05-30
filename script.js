@@ -190,6 +190,13 @@ function toggleFavorite(codigo, musica, artista){
     );
 
     alert('❌ Removida das favoritas');
+    if(viewingFavorites){
+
+  musicList.innerHTML = '';
+
+  renderSongs(favorites);
+
+}
 
   } else {
 
