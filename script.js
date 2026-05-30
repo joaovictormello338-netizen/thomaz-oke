@@ -250,3 +250,22 @@ if(showFavoritesBtn){
   });
 
 }
+const showAllBtn = document.getElementById('showAll');
+
+if(showAllBtn){
+
+  showAllBtn.addEventListener('click', () => {
+
+    viewingFavorites = false;
+
+    currentIndex = 0;
+
+    filteredSongs = songs;
+
+    musicList.innerHTML = '';
+
+    loadMoreSongs();
+
+  });
+
+}
