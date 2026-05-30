@@ -7,7 +7,6 @@ let filteredSongs = [];
 let currentIndex = 0;
 const limit = 50;
 
-
 // CARREGAR CATÁLOGO
 fetch('catalogo-thomaz-oke.json')
 
@@ -35,16 +34,12 @@ fetch('catalogo-thomaz-oke.json')
         color:#ff4d4d;
         font-size:20px;
       ">
-
         Erro ao carregar catálogo.
-
       </div>
 
     `;
 
   });
-
-
 
 
 // RENDERIZAR MÚSICAS
@@ -73,14 +68,14 @@ function renderSongs(list){
         <div class="artist">
           ${artista}
         </div>
-        <button
-  class="favorite-btn"
-  onclick="toggleFavorite('${codigo}','${musica}','${artista}')"
->
-  ❤️ Favoritar
-</button>
 
-        
+        <button
+          class="favorite-btn"
+          onclick="toggleFavorite('${codigo}','${musica}','${artista}')"
+        >
+          ❤️ Favoritar
+        </button>
+
       </div>
 
     `;
@@ -90,17 +85,12 @@ function renderSongs(list){
 }
 
 
-
-
 // CARREGAR MAIS MÚSICAS
 function loadMoreSongs(){
 
   const nextSongs = filteredSongs.slice(
-
     currentIndex,
-
     currentIndex + limit
-
   );
 
   renderSongs(nextSongs);
@@ -110,26 +100,16 @@ function loadMoreSongs(){
 }
 
 
-
-
 // SCROLL INFINITO
 window.addEventListener('scroll', () => {
 
   const {
-
     scrollTop,
-
     scrollHeight,
-
     clientHeight
-
   } = document.documentElement;
 
-  if(
-
-    scrollTop + clientHeight >= scrollHeight - 100
-
-  ){
+  if(scrollTop + clientHeight >= scrollHeight - 100){
 
     loadMoreSongs();
 
@@ -138,15 +118,11 @@ window.addEventListener('scroll', () => {
 });
 
 
-
-
 // BUSCA
 search.addEventListener('keyup', () => {
 
   const term = search.value
-
     .toLowerCase()
-
     .trim();
 
   currentIndex = 0;
@@ -166,21 +142,15 @@ search.addEventListener('keyup', () => {
   filteredSongs = songs.filter(song => {
 
     const musica = String(
-
       song.musica || ''
-
     ).toLowerCase();
 
     const artista = String(
-
       song.artista || ''
-
     ).toLowerCase();
 
     const codigo = String(
-
       song.codigo || ''
-
     );
 
     return (
@@ -198,6 +168,48 @@ search.addEventListener('keyup', () => {
   loadMoreSongs();
 
 });
+
+
+// FAVORITAR MÚSICA
+function toggleFavorite(codigo, musica, artista){
+
+  let favorites = JSON.parse(
+    localStorage.getItem('favorites')
+  ) || [];
+
+  const exists = favorites.find(
+    item => item.codigo === codigo
+  );
+
+  if(exists){
+
+    favorites = favorites.filter(
+      item => item.codigo !== codigo
+    );
+
+    alert('❌ Removida das favoritas');
+
+  } else {
+
+    favorites.push({
+      codigo,
+      musica,
+      artista
+    });
+
+    alert('❤️ Música adicionada às favoritas');
+
+  }
+
+  localStorage.setItem(
+    'favorites',
+    JSON.stringify(favorites)
+  );
+
+}
+
+
+// BOTÃO MINHAS FAVORITAS
 const showFavoritesBtn = document.getElementById('showFavorites');
 
 if(showFavoritesBtn){
@@ -208,9 +220,26 @@ if(showFavoritesBtn){
       localStorage.getItem('favorites')
     ) || [];
 
-    console.log('Favoritas:', favorites);
-
     musicList.innerHTML = '';
+
+    currentIndex = 0;
+
+    if(favorites.length === 0){
+
+      musicList.innerHTML = `
+        <div style="
+          text-align:center;
+          padding:40px;
+          color:white;
+          font-size:20px;
+        ">
+          ❤️ Nenhuma música favoritada ainda.
+        </div>
+      `;
+
+      return;
+
+    }
 
     renderSongs(favorites);
 
