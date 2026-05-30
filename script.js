@@ -6,6 +6,7 @@ let filteredSongs = [];
 
 let currentIndex = 0;
 const limit = 50;
+let viewingFavorites = false;
 
 // CARREGAR CATÁLOGO
 fetch('catalogo-thomaz-oke.json')
@@ -109,11 +110,12 @@ window.addEventListener('scroll', () => {
     clientHeight
   } = document.documentElement;
 
-  if(scrollTop + clientHeight >= scrollHeight - 100){
-
-    loadMoreSongs();
-
-  }
+ if(
+  !viewingFavorites &&
+  scrollTop + clientHeight >= scrollHeight - 100
+){
+  loadMoreSongs();
+}
 
 });
 
@@ -215,6 +217,8 @@ const showFavoritesBtn = document.getElementById('showFavorites');
 if(showFavoritesBtn){
 
   showFavoritesBtn.addEventListener('click', () => {
+    
+    viewingFavorites = true;
 
     const favorites = JSON.parse(
       localStorage.getItem('favorites')
