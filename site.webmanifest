@@ -1,0 +1,15 @@
+{
+  "name": "Thomaz-Okê",
+  "short_name": "Thomaz-Okê",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09031f",
+  "theme_color": "#09031f",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
