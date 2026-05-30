@@ -1232,4 +1232,21 @@ header::after{
   transform: translateY(-2px);
 
 }
+.welcome-box{
+
+  text-align:center;
+
+  margin:20px;
+
+}
+
+.qrcode{
+
+  width:150px;
+
+  margin-top:15px;
+
+  border-radius:10px;
+
+}
 
