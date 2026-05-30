@@ -9,7 +9,7 @@ const limit = 50;
 let viewingFavorites = false;
 
 // CARREGAR CATÁLOGO
-fetch('catalogo-thomaz-oke.json')
+fetch('catalogo-thomaz-oke.json?v=2')
 
   .then(response => response.json())
 
