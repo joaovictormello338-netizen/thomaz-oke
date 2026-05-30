@@ -1182,4 +1182,42 @@ header::after{
   transform:scale(1.05);
 
 }
+.category-btn{
+
+  min-width: 280px;
+
+  height: 55px;
+
+  padding: 0 25px;
+
+  border: none;
+
+  border-radius: 16px;
+
+  font-size: 18px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  color: white;
+
+  background: linear-gradient(
+    135deg,
+    #7b2cff,
+    #ff3f86
+  );
+
+  box-shadow:
+    0 0 15px rgba(255, 0, 150, .4);
+
+  transition: .3s;
+
+}
+
+.category-btn:hover{
+
+  transform: translateY(-2px);
+
+}
 
