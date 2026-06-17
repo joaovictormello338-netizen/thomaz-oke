@@ -82,6 +82,12 @@ function renderSongs(list){
         >
           ❤️ Favoritar
         </button>
+<button
+  class="request-btn"
+  onclick="requestSong('${codigo}','${musica}','${artista}')"
+>
+  🎤 Quero Cantar
+</button>
 
       </div>
 
@@ -351,5 +357,42 @@ if(showRankingBtn){
     });
 
   });
+
+}
+window.requestSong = async function(
+  codigo,
+  musica,
+  artista
+){
+
+  const key = codigo;
+
+  const songRef = ref(
+    db,
+    'ranking/' + key
+  );
+
+  const snapshot = await get(songRef);
+
+  let votos = 0;
+
+  if(snapshot.exists()){
+
+    votos = snapshot.val().votos || 0;
+
+  }
+
+  await set(songRef, {
+
+    codigo,
+    musica,
+    artista,
+    votos: votos + 1
+
+  });
+
+  alert(
+    '🎤 Música adicionada ao ranking global!'
+  );
 
 }
