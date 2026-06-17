@@ -132,23 +132,9 @@ function normalizeText(text){
 search.addEventListener('keyup', () => {
 
   const term = normalizeText(
-    search.value.trim()
-  );
+  search.value.trim()
+);
 
-  if(term.length > 2){
-
-    let ranking = JSON.parse(
-      localStorage.getItem('ranking')
-    ) || {};
-
-    ranking[term] = (ranking[term] || 0) + 1;
-
-    localStorage.setItem(
-      'ranking',
-      JSON.stringify(ranking)
-    );
-
-  }
 if(term.length > 2){
 
   let ranking = JSON.parse(
