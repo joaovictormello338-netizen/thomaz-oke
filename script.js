@@ -121,21 +121,11 @@ window.addEventListener('scroll', () => {
 
 
 // BUSCA
-const limit = 50;
-function normalizeText(text){
-
-  return text
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
-
-}
-
 search.addEventListener('keyup', () => {
 
   const term = normalizeText(
-  search.value.trim()
-);
+    search.value.trim()
+  );
 
   currentIndex = 0;
 
@@ -151,32 +141,29 @@ search.addEventListener('keyup', () => {
 
   }
 
- filteredSongs = songs.filter(song => {
+  filteredSongs = songs.filter(song => {
 
-  const musica = normalizeText(
-    String(song.musica || '')
-  );
+    const musica = normalizeText(
+      String(song.musica || '')
+    );
 
-  const artista = normalizeText(
-    String(song.artista || '')
-  );
+    const artista = normalizeText(
+      String(song.artista || '')
+    );
 
-  const codigo = String(
-    song.codigo || ''
-  );
+    const codigo = String(
+      song.codigo || ''
+    );
 
-  const texto = `${musica} ${artista} ${codigo}`;
+    const texto = `${musica} ${artista} ${codigo}`;
 
-  return texto.includes(term);
-
-});
+    return texto.includes(term);
 
   });
 
   loadMoreSongs();
 
 });
-
 
 // FAVORITAR MÚSICA
 function toggleFavorite(codigo, musica, artista){
