@@ -1,3 +1,9 @@
+import {
+  db,
+  ref,
+  get,
+  set
+} from './firebase.js';
 const musicList = document.getElementById('music-list');
 const search = document.getElementById('search');
 
