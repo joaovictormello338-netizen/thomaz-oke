@@ -121,6 +121,14 @@ window.addEventListener('scroll', () => {
 
 
 // BUSCA
+function normalizeText(text){
+
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+
+}
 search.addEventListener('keyup', () => {
 
   const term = normalizeText(
