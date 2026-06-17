@@ -165,7 +165,9 @@ search.addEventListener('keyup', () => {
 
     const texto = `${musica} ${artista} ${codigo}`;
 
-    return texto.includes(term);
+    return texto.includes(term) ||
+       texto.replace(/h/g, '').includes(term.replace(/h/g, '')) ||
+       texto.replace(/vv/g, 'v').includes(term.replace(/vv/g, 'v'));
 
   });
 
