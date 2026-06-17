@@ -307,3 +307,57 @@ if(showAllBtn){
   });
 
 }
+const showRankingBtn =
+document.getElementById('showRanking');
+
+if(showRankingBtn){
+
+  showRankingBtn.addEventListener('click', () => {
+
+    const ranking = JSON.parse(
+      localStorage.getItem('ranking')
+    ) || {};
+
+    const top = Object.entries(ranking)
+      .sort((a,b) => b[1] - a[1])
+      .slice(0,10);
+
+    musicList.innerHTML = '';
+
+    if(top.length === 0){
+
+      musicList.innerHTML = `
+        <div class="card">
+          <h2>🔥 Nenhuma pesquisa ainda</h2>
+        </div>
+      `;
+
+      return;
+
+    }
+
+    top.forEach((item,index) => {
+
+      musicList.innerHTML += `
+        <div class="card">
+
+          <div class="code">
+            #${index + 1}
+          </div>
+
+          <h2>
+            ${item[0]}
+          </h2>
+
+          <div class="artist">
+            🔥 ${item[1]} pesquisas
+          </div>
+
+        </div>
+      `;
+
+    });
+
+  });
+
+}
