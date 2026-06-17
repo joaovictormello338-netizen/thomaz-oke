@@ -121,11 +121,21 @@ window.addEventListener('scroll', () => {
 
 
 // BUSCA
+const limit = 50;
+function normalizeText(text){
+
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+
+}
+
 search.addEventListener('keyup', () => {
 
-  const term = search.value
-    .toLowerCase()
-    .trim();
+  const term = normalizeText(
+  search.value.trim()
+);
 
   currentIndex = 0;
 
@@ -141,31 +151,25 @@ search.addEventListener('keyup', () => {
 
   }
 
-  filteredSongs = songs.filter(song => {
+ filteredSongs = songs.filter(song => {
 
-    const musica = String(
-      song.musica || ''
-    ).toLowerCase();
+  const musica = normalizeText(
+    String(song.musica || '')
+  );
 
-    const artista = String(
-      song.artista || ''
-    ).toLowerCase();
+  const artista = normalizeText(
+    String(song.artista || '')
+  );
 
-    const codigo = String(
-      song.codigo || ''
-    );
+  const codigo = String(
+    song.codigo || ''
+  );
 
-   const palavras = term.split(' ');
+  const texto = `${musica} ${artista} ${codigo}`;
 
-return palavras.every(palavra =>
+  return texto.includes(term);
 
-  musica.includes(palavra) ||
-
-  artista.includes(palavra) ||
-
-  codigo.includes(palavra)
-
-);
+});
 
   });
 
