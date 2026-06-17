@@ -155,15 +155,17 @@ search.addEventListener('keyup', () => {
       song.codigo || ''
     );
 
-    return (
+   const palavras = term.split(' ');
 
-      musica.includes(term) ||
+return palavras.every(palavra =>
 
-      artista.includes(term) ||
+  musica.includes(palavra) ||
 
-      codigo.includes(term)
+  artista.includes(palavra) ||
 
-    );
+  codigo.includes(palavra)
+
+);
 
   });
 
