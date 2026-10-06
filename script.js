@@ -1,9 +1,3 @@
-import {
-  db,
-  ref,
-  get,
-  set
-} from './firebase.js';
 const musicList = document.getElementById('music-list');
 const search = document.getElementById('search');
 
@@ -12,9 +6,14 @@ let filteredSongs = [];
 
 let currentIndex = 0;
 const limit = 50;
+
 let viewingFavorites = false;
 
+
+// ==========================================
 // CARREGAR CATÁLOGO
+// ==========================================
+
 fetch('catalogo-thomaz-oke.json?v=2')
 
   .then(response => response.json())
@@ -41,7 +40,9 @@ fetch('catalogo-thomaz-oke.json?v=2')
         color:#ff4d4d;
         font-size:20px;
       ">
+
         Erro ao carregar catálogo.
+
       </div>
 
     `;
@@ -49,7 +50,24 @@ fetch('catalogo-thomaz-oke.json?v=2')
   });
 
 
+// ==========================================
+// NORMALIZAR TEXTO
+// ==========================================
+
+function normalizeText(text){
+
+  return String(text)
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+
+}
+
+
+// ==========================================
 // RENDERIZAR MÚSICAS
+// ==========================================
+
 function renderSongs(list){
 
   list.forEach(song => {
@@ -82,12 +100,6 @@ function renderSongs(list){
         >
           ❤️ Favoritar
         </button>
-<button
-  class="request-btn"
-  onclick="requestSong('${codigo}','${musica}','${artista}')"
->
-  🎤 Quero Cantar
-</button>
 
       </div>
 
@@ -98,7 +110,10 @@ function renderSongs(list){
 }
 
 
+// ==========================================
 // CARREGAR MAIS MÚSICAS
+// ==========================================
+
 function loadMoreSongs(){
 
   const nextSongs = filteredSongs.slice(
@@ -113,7 +128,10 @@ function loadMoreSongs(){
 }
 
 
+// ==========================================
 // SCROLL INFINITO
+// ==========================================
+
 window.addEventListener('scroll', () => {
 
   const {
@@ -122,50 +140,56 @@ window.addEventListener('scroll', () => {
     clientHeight
   } = document.documentElement;
 
- if(
-  !viewingFavorites &&
-  scrollTop + clientHeight >= scrollHeight - 100
-){
-  loadMoreSongs();
-}
+  if(
+    !viewingFavorites &&
+    scrollTop + clientHeight >= scrollHeight - 100 &&
+    currentIndex < filteredSongs.length
+  ){
+
+    loadMoreSongs();
+
+  }
 
 });
 
 
+// ==========================================
 // BUSCA
-function normalizeText(text){
+// ==========================================
 
-  return text
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
-
-}
 search.addEventListener('keyup', () => {
 
   const term = normalizeText(
-  search.value.trim()
-);
-
-if(term.length > 2){
-
-  let ranking = JSON.parse(
-    localStorage.getItem('ranking')
-  ) || {};
-
-  ranking[term] = (ranking[term] || 0) + 1;
-
-  localStorage.setItem(
-    'ranking',
-    JSON.stringify(ranking)
+    search.value.trim()
   );
 
-}
+
+  // REGISTRAR PESQUISA
+  if(term.length > 2){
+
+    let ranking = JSON.parse(
+      localStorage.getItem('ranking')
+    ) || {};
+
+    ranking[term] = (ranking[term] || 0) + 1;
+
+    localStorage.setItem(
+      'ranking',
+      JSON.stringify(ranking)
+    );
+
+  }
+
+
   currentIndex = 0;
 
   musicList.innerHTML = '';
 
+
+  // SE BUSCA ESTIVER VAZIA
   if(term === ''){
+
+    viewingFavorites = false;
 
     filteredSongs = songs;
 
@@ -175,118 +199,204 @@ if(term.length > 2){
 
   }
 
+
+  // FILTRAR MÚSICAS
   filteredSongs = songs.filter(song => {
 
     const musica = normalizeText(
-      String(song.musica || '')
+      song.musica || ''
     );
 
     const artista = normalizeText(
-      String(song.artista || '')
+      song.artista || ''
     );
 
     const codigo = String(
       song.codigo || ''
     );
 
-    const texto = `${musica} ${artista} ${codigo}`;
 
-    return texto.includes(term) ||
-       texto.replace(/h/g, '').includes(term.replace(/h/g, '')) ||
-       texto.replace(/vv/g, 'v').includes(term.replace(/vv/g, 'v'));
+    const texto =
+      `${musica} ${artista} ${codigo}`;
+
+
+    // BUSCA NORMAL
+    if(texto.includes(term)){
+      return true;
+    }
+
+
+    // TOLERÂNCIA PARA "H"
+    const textoSemH =
+      texto.replace(/h/g, '');
+
+    const termoSemH =
+      term.replace(/h/g, '');
+
+    if(textoSemH.includes(termoSemH)){
+      return true;
+    }
+
+
+    // TOLERÂNCIA PARA VV
+    const textoSemVV =
+      texto.replace(/vv/g, 'v');
+
+    const termoSemVV =
+      term.replace(/vv/g, 'v');
+
+    if(textoSemVV.includes(termoSemVV)){
+      return true;
+    }
+
+
+    return false;
 
   });
+
 
   loadMoreSongs();
 
 });
 
-// FAVORITAR MÚSICA
+
+// ==========================================
+// FAVORITAR / DESFAVORITAR
+// ==========================================
+
 function toggleFavorite(codigo, musica, artista){
 
   let favorites = JSON.parse(
     localStorage.getItem('favorites')
   ) || [];
 
+
   const exists = favorites.find(
-    item => item.codigo === codigo
+    item => String(item.codigo) === String(codigo)
   );
 
+
+  // REMOVER DOS FAVORITOS
   if(exists){
 
     favorites = favorites.filter(
-      item => item.codigo !== codigo
+      item => String(item.codigo) !== String(codigo)
     );
 
-    alert('❌ Removida das favoritas');
+
+    localStorage.setItem(
+      'favorites',
+      JSON.stringify(favorites)
+    );
+
+
+    alert('❌ Música removida das favoritas');
+
+
+    // SE ESTIVER NA TELA DE FAVORITOS
     if(viewingFavorites){
 
-  musicList.innerHTML = '';
+      musicList.innerHTML = '';
 
-  renderSongs(favorites);
+      renderSongs(favorites);
 
-}
+    }
 
-  } else {
-
-    favorites.push({
-      codigo,
-      musica,
-      artista
-    });
-
-    alert('❤️ Música adicionada às favoritas');
+    return;
 
   }
+
+
+  // ADICIONAR AOS FAVORITOS
+  favorites.push({
+
+    codigo: String(codigo),
+
+    musica: musica,
+
+    artista: artista
+
+  });
+
 
   localStorage.setItem(
     'favorites',
     JSON.stringify(favorites)
   );
 
+
+  alert('❤️ Música adicionada às favoritas');
+
 }
 
 
-// BOTÃO MINHAS FAVORITAS
-const showFavoritesBtn = document.getElementById('showFavorites');
+// ==========================================
+// IMPORTANTE PARA O BOTÃO FAVORITAR
+// ==========================================
+
+window.toggleFavorite = toggleFavorite;
+
+
+// ==========================================
+// BOTÃO "MINHAS MÚSICAS FAVORITAS"
+// ==========================================
+
+const showFavoritesBtn =
+  document.getElementById('showFavorites');
+
 
 if(showFavoritesBtn){
 
   showFavoritesBtn.addEventListener('click', () => {
-    
+
     viewingFavorites = true;
 
     const favorites = JSON.parse(
       localStorage.getItem('favorites')
     ) || [];
 
+
     musicList.innerHTML = '';
 
     currentIndex = 0;
 
+
     if(favorites.length === 0){
 
       musicList.innerHTML = `
+
         <div style="
           text-align:center;
           padding:40px;
           color:white;
           font-size:20px;
         ">
+
           ❤️ Nenhuma música favoritada ainda.
+
         </div>
+
       `;
 
       return;
 
     }
 
+
     renderSongs(favorites);
 
   });
 
 }
-const showAllBtn = document.getElementById('showAll');
+
+
+// ==========================================
+// BOTÃO "CATÁLOGO ATUALIZADO"
+// ==========================================
+
+const showAllBtn =
+  document.getElementById('showAll');
+
 
 if(showAllBtn){
 
@@ -305,38 +415,60 @@ if(showAllBtn){
   });
 
 }
+
+
+// ==========================================
+// BOTÃO "MAIS PROCURADAS"
+// ==========================================
+
 const showRankingBtn =
-document.getElementById('showRanking');
+  document.getElementById('showRanking');
+
 
 if(showRankingBtn){
 
   showRankingBtn.addEventListener('click', () => {
 
+    viewingFavorites = true;
+
     const ranking = JSON.parse(
       localStorage.getItem('ranking')
     ) || {};
 
+
     const top = Object.entries(ranking)
-      .sort((a,b) => b[1] - a[1])
-      .slice(0,10);
+
+      .sort((a, b) => b[1] - a[1])
+
+      .slice(0, 10);
+
 
     musicList.innerHTML = '';
+
 
     if(top.length === 0){
 
       musicList.innerHTML = `
+
         <div class="card">
-          <h2>🔥 Nenhuma pesquisa ainda</h2>
+
+          <h2>
+            🔥 Nenhuma pesquisa ainda
+          </h2>
+
         </div>
+
       `;
 
       return;
 
     }
 
-    top.forEach((item,index) => {
+
+    top.forEach((item, index) => {
 
       musicList.innerHTML += `
+
         <div class="card">
 
           <div class="code">
@@ -352,47 +484,11 @@ if(showRankingBtn){
           </div>
 
         </div>
+
       `;
 
     });
 
   });
-
-}
-window.requestSong = async function(
-  codigo,
-  musica,
-  artista
-){
-
-  const key = codigo;
-
-  const songRef = ref(
-    db,
-    'ranking/' + key
-  );
-
-  const snapshot = await get(songRef);
-
-  let votos = 0;
-
-  if(snapshot.exists()){
-
-    votos = snapshot.val().votos || 0;
-
-  }
-
-  await set(songRef, {
-
-    codigo,
-    musica,
-    artista,
-    votos: votos + 1
-
-  });
-
-  alert(
-    '🎤 Música adicionada ao ranking global!'
-  );
 
 }
